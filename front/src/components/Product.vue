@@ -1,7 +1,10 @@
 <template>
-    <div class="w-full lg:w-1/3 xl:w-1/4 flex flex-col p-4" v-if="data">
+    <div class="w-full md:w-2/4 lg:w-1/3 xl:w-1/4 flex flex-col px-10 py-4 lg:p-4" v-if="data">
         <div class="flex flex-col bg-white h-full rounded overflow-hidden">
-            <figure class="self-center">
+            <figure class="self-center relative">
+                <div @click="doFavorite" class="absolute right-0 top-0 mr-2 mt-2 cursor-pointer">
+                    <em class="text-xl icon icon-heart" :class="{'text-white': !data.favorite, 'text-red-600': data.favorite}"></em>
+                </div>
                 <img :src="data.image_url" :alt="data.productName">
             </figure>
             <div class="p-2 flex flex-col h-full">
@@ -58,9 +61,16 @@ export default class Product extends Vue{
     @products.Action
     public decreaseStockProduct!: (id: string) => void
 
+    @products.Action
+    public favoriteProduct!: (product: IProduct) => void
+
     addProductToCart() {
         this.decreaseStockProduct(this.data.id)
         this.addProduct(this.data)
+    }
+
+    doFavorite(){
+        this.favoriteProduct( this.data )
     }
 
 

@@ -53,9 +53,6 @@ class ProductsModule extends VuexModule {
     }
   }
 
-
-
-
   @Action
   public async loadFavoriteProducts(): Promise<any> {
     console.log('favorites')
@@ -71,6 +68,16 @@ class ProductsModule extends VuexModule {
   public async loadProduct(id: string): Promise<any> {
     await ProductsService.get(id).then((response: any) => {
       this.context.commit('setProduct', response.data)
+      console.log(response.data)
+    }).catch((error: any) => {
+      console.log(error)
+    })
+  }
+
+  @Action
+  public async favoriteProduct(product: IProduct): Promise<any> {
+    product.favorite = product.favorite === 0 ? 1 : 0;
+    await ProductsService.update(product.id,product).then((response: any) => {
       console.log(response.data)
     }).catch((error: any) => {
       console.log(error)

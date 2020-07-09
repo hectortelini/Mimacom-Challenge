@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full bg-white py-4">
         <div class="text-center">
           <h1 class="text-3xl">Product List</h1>
           <div id="nav">
@@ -17,3 +17,15 @@
         
     }
 </script>
+
+<style lang="postcss">
+
+  #nav a {
+    @apply font-bold text-blue-800;
+  }
+
+  #nav a.router-link-exact-active {
+    @apply text-teal-500;
+  }
+
+</style>

@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
+@import './fonts.css';
+@import './vue2-perfect-scrollbar.css';
 @tailwind utilities;
