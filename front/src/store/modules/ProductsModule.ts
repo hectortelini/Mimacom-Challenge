@@ -25,9 +25,6 @@ class ProductsModule extends VuexModule {
     return this.products
   }
 
-  get singleProduct(): IProduct {
-    return this.product!
-  }
 
   @Action
   public async loadProducts(): Promise<void> {

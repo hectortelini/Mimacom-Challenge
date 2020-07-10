@@ -1,7 +1,7 @@
 <template>
   <default-template>
     <div class="my-10 mx-8">
-      <product :data="singleProduct" :full="true" />
+      <product :data="product" :full="true" />
     </div>
   </default-template>
 </template>
@@ -27,17 +27,15 @@ const products = namespace('products')
 
 export default class SingleProduct extends Vue  {
 
-  private product: IProduct | null = null;
 
-  @products.Getter
-  public singleProduct!: IProduct
+  @products.State
+  private product!: IProduct 
 
   @products.Action
   public loadProduct!: (id: string) => void
 
   async mounted() {
     await this.loadProduct(this.$route.params.id);
-    this.product = this.singleProduct;
   }
 }
 </script>
