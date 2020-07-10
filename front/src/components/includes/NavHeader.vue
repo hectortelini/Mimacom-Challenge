@@ -1,7 +1,7 @@
 <template>
     <div class="w-full bg-white py-4">
         <div class="text-center relative flex flex-col justify-center">
-          <div class="absolute right-0 mr-16 lg:hidden">
+          <div class="absolute right-0 mx-12 lg:hidden">
             <button-icon @click="$emit('cart')" icon="basket" :notice="cartProducts.length > 0" :notice-number="productsInCart" />
           </div>
           <h1 class="text-3xl">Product List</h1>
