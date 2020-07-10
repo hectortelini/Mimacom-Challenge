@@ -2,15 +2,12 @@
   <main class="home">
     <div class="flex w-screen h-screen">
       <div class="flex flex-col flex-grow relative">
-        <nav-header />
+        <nav-header @cart="onOpenCart" />
         <perfect-scrollbar>
           <div class="flex flex-wrap px-4">
             <product v-for="(product, index) in products" :key="index" :data="product" />
           </div>
         </perfect-scrollbar>
-        <div @click="onOpenCart" class="absolute opacity-75 cursor-pointer bottom-0 right-0 mr-8 mb-8 rounded-full bg-orange-500 text-white p-4 w-16 h-16 flex-shrink-0 flex items-center justify-center lg:hidden">
-          <em class="icon icon-basket"></em>
-        </div>
       </div>
       <shopping-cart @on-close="onOpenCart" :open="cartOpened"/>
     </div>

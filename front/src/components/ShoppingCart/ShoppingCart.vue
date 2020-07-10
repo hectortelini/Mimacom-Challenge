@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen absolute lg:relative flex flex-col lg:opacity-100 lg:flex lg:w-1/4 lg:p-4 flex-shrink-0 bg-white border-l border-gray-500 shadow-xl overflow-hidden"
+    <div class="h-screen absolute lg:relative flex flex-col lg:opacity-100 lg:flex lg:w-1/4 lg:p-4 flex-shrink-0 bg-white border-l border-gray-500 shadow-xl overflow-hidden ease-in-out duration-200"
     :class="{
         'opacity-1 w-screen p-4': this.open,
         'opacity-0 hidden p-0': !this.open
