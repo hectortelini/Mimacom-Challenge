@@ -1,4 +1,5 @@
 import http from "@/http/axios";
+import IProduct from '@/interfaces/IProduct'
 
 class ProductsService {
   getAll() {
@@ -13,11 +14,11 @@ class ProductsService {
     return http.get(`/grocery/${id}`);
   }
 
-  create(data: any) {
+  create(data: IProduct) {
     return http.post("/grocery", data);
   }
 
-  update(id: string, data: any) {
+  update(id: string, data: IProduct) {
     return http.put(`/grocery/${id}`, data);
   }
 

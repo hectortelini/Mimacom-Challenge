@@ -1,6 +1,5 @@
 import vue from 'vue';
 import { VuexModule, Module, Mutation, Action, config } from 'vuex-module-decorators'
-import ProductsService from '@/services/productsService'
 
 import IProduct from '@/interfaces/IProduct'
 
@@ -20,8 +19,8 @@ class CartModule extends VuexModule {
         return;
     }
     const itemToUpdate = this.cartProducts[productIndex];
-    if( itemToUpdate ) {
-        itemToUpdate.amount! ++;
+    if( itemToUpdate && itemToUpdate.amount ) {
+        itemToUpdate.amount ++;
         vue.set(this.cartProducts, productIndex, itemToUpdate)
     }
     
@@ -35,13 +34,13 @@ class CartModule extends VuexModule {
         return;
     }
     const itemToUpdate = this.cartProducts[productIndex];
-    if( itemToUpdate ) {
+    if( itemToUpdate && itemToUpdate.amount) {
         if(itemToUpdate.amount === 1){
-            itemToUpdate.amount! --;
+            itemToUpdate.amount --;
             vue.delete(this.cartProducts, productIndex)
             return;
         }
-        itemToUpdate.amount! --;
+        itemToUpdate.amount --;
         vue.set(this.cartProducts, productIndex, itemToUpdate)
     }
     
