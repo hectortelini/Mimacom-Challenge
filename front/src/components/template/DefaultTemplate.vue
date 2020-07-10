@@ -4,7 +4,7 @@
       <div class="flex flex-col flex-grow relative">
         <nav-header @cart="onOpenCart" />
         <perfect-scrollbar>
-          <slot />
+          <slot></slot>
         </perfect-scrollbar>
       </div>
       <shopping-cart @on-close="onOpenCart" :open="cartOpened"/>
@@ -15,7 +15,7 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
     import NavHeader from '@/components/includes/NavHeader.vue'
-    import ShoppingCart from '@/components/ShoppingCart/ShoppingCart.vue'
+    import ShoppingCart from '@/components/shoppingCart/ShoppingCart.vue'
 
     @Component({
     components: {
@@ -23,8 +23,6 @@
         ShoppingCart
     }
 })
-
-    @Component
     export default class DefaultTemplate extends Vue {
 
         private cartOpened = false; 

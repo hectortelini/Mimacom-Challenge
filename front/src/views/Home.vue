@@ -1,41 +1,32 @@
 <template>
-  <main class="home">
-    <div class="flex w-screen h-screen">
-      <div class="flex flex-col flex-grow relative">
-        <nav-header @cart="onOpenCart" />
-        <perfect-scrollbar>
-          <div class="flex flex-wrap px-4">
+    <default-template>
+      <div class="flex flex-wrap px-4">
             <product v-for="(product, index) in products" :key="index" :data="product" />
           </div>
-        </perfect-scrollbar>
-      </div>
-      <shopping-cart @on-close="onOpenCart" :open="cartOpened"/>
-    </div>
-  </main>
+
+    </default-template>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Product from '@/components/Product.vue'
-import IProduct from '../interfaces/IProduct'
+import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import NavHeader from '@/components/includes/NavHeader.vue'
-import ShoppingCart from '@/components/ShoppingCart/ShoppingCart.vue'
 
+import IProduct from '../interfaces/IProduct'
+
+import DefaultTemplate from '@/components/template/DefaultTemplate.vue'
+import Product from '@/components/Product.vue'
 
 const products = namespace('products')
 
 @Component({
   components: {
-    NavHeader,
-    Product, 
-    ShoppingCart
+    DefaultTemplate,
+    Product
   }
 })
 
 export default class Home extends Vue  {
   private products: IProduct[] = [];
-  private cartOpened = false; 
 
   @products.Getter
   public allProducts!: IProduct[]
@@ -48,8 +39,5 @@ export default class Home extends Vue  {
     this.products = this.allProducts;
   }
 
-  onOpenCart() {
-    this.cartOpened = !this.cartOpened;
-  }
 }
 </script>

@@ -1,43 +1,43 @@
 <template>
-  <main class="home" v-if="product">
-    <div class="flex w-screen h-screen">
-      <div class="my-10 mx-8">
-        <product :data="product" :full="true" />
-      </div>
-      <shopping-cart />
+  <default-template>
+    <div class="my-10 mx-8">
+      <product :data="singleProduct" :full="true" />
     </div>
-  </main>
+  </default-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import IProduct from '../interfaces/IProduct'
 import { namespace } from 'vuex-class'
 
+import IProduct from '../interfaces/IProduct'
+
+import DefaultTemplate from '@/components/template/DefaultTemplate.vue'
 import Product from '@/components/Product.vue'
-import ShoppingCart from '@/components/ShoppingCart/ShoppingCart.vue'
 
 
 const products = namespace('products')
 
 @Component({
   components: {
-    Product, 
-    ShoppingCart
+    DefaultTemplate,
+    Product
   }
 })
 
 export default class SingleProduct extends Vue  {
 
-  @products.State
-  public product!: IProduct
+  private product: IProduct | null = null;
+
+  @products.Getter
+  public singleProduct!: IProduct
 
   @products.Action
   public loadProduct!: (id: string) => void
 
   async mounted() {
     await this.loadProduct(this.$route.params.id);
-    console.log(this.product);
+    this.product = this.singleProduct;
   }
 }
 </script>

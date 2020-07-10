@@ -1,8 +1,8 @@
-import store from '@/store'
 import { VuexModule, Module, Mutation, Action, config } from 'vuex-module-decorators'
 import ProductsService from '@/services/productsService'
 
 import IProduct from '@/interfaces/IProduct'
+import IServerResponse from '@/interfaces/IServerResponse'
 
 config.rawError = true;
 
@@ -25,12 +25,15 @@ class ProductsModule extends VuexModule {
     return this.products
   }
 
+  get singleProduct(): IProduct {
+    return this.product!
+  }
+
   @Action
-  public async loadProducts(): Promise<any> {
-    await ProductsService.getAll().then((response: any) => {
+  public async loadProducts(): Promise<void> {
+    await ProductsService.getAll().then((response: IServerResponse) => {
       this.context.commit('setProducts', response.data)
-      console.log(response.data)
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log(error)
     })
   }
@@ -54,32 +57,27 @@ class ProductsModule extends VuexModule {
   }
 
   @Action
-  public async loadFavoriteProducts(): Promise<any> {
-    console.log('favorites')
-    await ProductsService.getFavorites().then((response: any) => {
+  public async loadFavoriteProducts(): Promise<void> {
+    await ProductsService.getFavorites().then((response: IServerResponse) => {
       this.context.commit('setProducts', response.data)
-      console.log(response.data)
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log(error)
     })
   }
 
   @Action
-  public async loadProduct(id: string): Promise<any> {
-    await ProductsService.get(id).then((response: any) => {
+  public async loadProduct(id: string): Promise<void> {
+    await ProductsService.get(id).then((response: IServerResponse) => {
       this.context.commit('setProduct', response.data)
-      console.log(response.data)
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log(error)
     })
   }
 
   @Action
-  public async favoriteProduct(product: IProduct): Promise<any> {
+  public async favoriteProduct(product: IProduct): Promise<void> {
     product.favorite = product.favorite === 0 ? 1 : 0;
-    await ProductsService.update(product.id,product).then((response: any) => {
-      console.log(response.data)
-    }).catch((error: any) => {
+    await ProductsService.update(product.id,product).catch((error: Error) => {
       console.log(error)
     })
   }

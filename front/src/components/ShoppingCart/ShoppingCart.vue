@@ -33,13 +33,11 @@
                     Total Amount:
                 </span>
                 <span class="text-orange-400">
-                    ${{totalPrice}}
+                    {{currency}}{{totalPrice}}
                 </span>
             </div>
             <div class="mr-4">
-                <button class="w-full bg-orange-400 text-white text-xl font-bold py-2 px-6">
-                    Checkout
-                </button>
+                <button-default name="Checkout" size="xl" />
             </div>
         </div>
     </div>
@@ -47,19 +45,24 @@
 
 <script lang="ts">
     import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
+    import { CURRENCY_SYMBOL } from '../../globals';
 
     import IProduct from '../../interfaces/IProduct'
     import { namespace } from 'vuex-class'
-    import ItemCart from '@/components/ShoppingCart/ItemCart.vue';
+    import ItemCart from '@/components/shoppingCart/ItemCart.vue';
+    import ButtonDefault from '@/components/includes/ButtonDefault.vue';
 
     const cart = namespace('cart')
 
     @Component({
         components: {
-            ItemCart
+            ItemCart, 
+            ButtonDefault
         }
     })
     export default class ShoppingCart extends Vue{
+
+        private currency = CURRENCY_SYMBOL
 
         @Prop({default: false}) private open!: boolean
 
@@ -75,7 +78,8 @@
         }
 
         amount(item: IProduct): number{
-            return item.price * item.amount!
+            if(item.amount) return item.price * item.amount
+            return 0;
         }
 
         sum(prev: number, next: number): number{
@@ -84,7 +88,6 @@
 
         @Emit()
         onClose(){
-            console.log('hola')
             this.open
         }
         
